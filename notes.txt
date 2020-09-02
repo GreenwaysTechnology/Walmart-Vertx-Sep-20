@@ -1,0 +1,184 @@
+
+
+                                        Vertx
+
+
+
+overview on functional programming
+
+Vertx
+
+Lab details
+
+1.jdk 8.
+2. ide - intelli j
+3.maven
+4.docker
+
+What is vertx?
+
+Why vertx?
+
+How to build apps using vertx?
+
+
+Vert.x means
+
+ Vert - Verticle
+ X  - Extension
+ Verticle Extension.
+
+Why vertx was created? Who created?
+
+Tim fox inspired node js on nonblocking and async arch, who wanted to 
+put non blocking and async arch on jvm.
+
+
+jvm supports blocking arch and sync style.
+
+
+Apache netty is core abstraction for modern java archs.- node like nonblocking and async.
+
+Apache netty was created in 2008.
+
+Apache netty uses NIO lib from java 7.
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+Vertx :
+
+ is non blocking arch and async arch
+
+blocking 
+
+Every arch traditional blocking arch.
+
+caller and callee
+
+caller will communicate callee to execute some task.
+
+Process Level Threading:
+
+-inside process (JVM) We create , and manange multiple threads.
+
+-if more threads , more resources-memory,cpu...
+   - performance issues
+-thread communication 
+  two or more threads communcate in order to exchange some data
+ during communications one thread may wait for another 
+  this state is called as blocking.
+
+ a thread is blocked for another thread result. which may cause cascading failures.
+
+
+non blocking
+
+All non blocking arch built based on a design pattern "Reactor" Design pattern
+
+
+Reactor design pattern
+
+-Worker thread model
+   task are executed by process are isloated outside process
+
+
+
+Event loop structure
+
+ while(isQueueEmpty()){
+   read message queue
+   take first message
+   process the message
+   remove that message from the queue
+  repait until all messages are processed
+ }
+  
+Vertx is multi reactor tool kit.
+
+Since vertx is insipired from node js but at the same , drawabacks of node been solved in vertx
+
+node js has only event loop.
+
+Vertx has provided multi event loop to enchance performance. multi core reactor pattern.
+
+"Vertx has more no of event loops"
+
+how many ?
+  based on cpu core in the machine where are running vertx apps.
+
+ per core by default is 2 event loop.
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+Vertx programming can be done with
+
+ -functional style
+ -reactive style.
+
+
+
+function as parameter to another function.
+function as return value from another function
+
+
+method reference: it is even simplest pattern of lambda
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+Vertx apps;
+...........
+
+Vertx is poly glot
+can be written using
+
+
+vertx-core :
+ basic non blocking feature api
+
+non blocking
+ fs
+ networking
+....
+
+
+
+-Maven Project
+-Gradle Project
+
+1.plain maven project, add vertx depedencies,You can use template entry method provided by vertx .
+
+2.Vertx Starter project
+
+3.Vertx maven cli project
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+Running Vertx Project
+
+via build system -maven / gradle
+
+maven 
+
+mvnw clean compile exec:java
+mvn clean compile exec:java
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
