@@ -164,20 +164,351 @@ mvnw clean compile exec:java
 mvn clean compile exec:java
 
 
+via fat jar .
+
+2.through java command.
+
+You have to pack vertx app as fat jar.
+
+1.mvnw clean package - make it fat jar
+
+2.java -jar target/vertx-apps-1.0.0-SNAPSHOT-fat.jar
+
+
+
+via vertx command
+
+C:\session\ibm\Aug\vert.x-3.9.2-full\vertx\bin  ; should be placed in env variable under path
+
+
+
+C:\session\ibm\Aug\Vertx-Training\vertx-apps\src\main\java\ibm\vertx>vertx run  MainVerticle.java
+
+
+3.via main method.
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+Vertx apps :
+
+ - vertx is java echo system.
+ - in java every thing is object
+
+Vertx is collection of objects
+
+-Vertx instance
+-Verticle instance
+
+
+1.Vertx Instance
+2.Verticle
+
+io.vertx.core package is core package
+
+Vertx Instance:
+
+ It is Object,Container Object. like Spring Container.
+
+-it is entry and exit point of vertx application.
+-on jvm(single) process can have single vertx instance.
+-vertx can host other objects.
+
+vertx instance can be used to build nonblocking io apps.
+
+
+
+Verticle:
+  -It is java object
+  -It can be deployed and undeployed on vertx instance.
+  -It is based on design pattern called "Actor-like Model"
+  -Verticles are bound to "Event loop" , are processed by event loops.
+
+
+deployment means , create object for a verticle class, initalizes resources for that object,
+start life cycle methods, bind with event loop thread, waits for events and reacts according them.
+
+public class SimpleVerticle {
+}
+
+pOJO Class
+
+how to convert pojo into verticle.
+
+public class SimpleVerticle  extends AbstractVertcle{
+}
+
+
+package com.walmart.vertx.verticles;
+
+import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Context;
+import io.vertx.core.Vertx;
+
+public class SimpleVerticle  extends AbstractVerticle {
+
+  @Override
+  public void init(Vertx vertx, Context context) {
+    super.init(vertx, context);
+    System.out.println("init method");
+  }
+
+  @Override
+  public void start() throws Exception {
+    super.start();
+    System.out.println("start method");
+  }
+
+  @Override
+  public void stop() throws Exception {
+    super.stop();
+    System.out.println("stop method");
+  }
+}
+
+how to run verticle?
+
+you need main mehtod/ entry to kick start the process.
+
+-Launcher class - which main method
+
+by default which is in pom.xml
+
+
+Runner class : 
+ utility method from vertx team.
+
+Vertx instance reference , is availble inside abstract verticle
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+
+
+Future:
+Represents the result of an action that may, or may not, have occurred yet.
+
+Future will have some thing
+
+some thing could be - result or error.
+
+Vertx Handlers - Event Handlers:
+................................
+
+Vertx Event Handlers can be in written in two ways
+
+1.Future && Promise Pattern : Functional style
+2.Reactive Pattern - RxJava2
+
+
+if you come from java script && node.js background,you know the concept called "Callback function" - callback function is other wise called as "listener function" or "handler function".
+
+
+1.Handler functions are not called by developers directly like other functions.
+2.Handlers functions are called by a thread "Event Loop".
+3.Handler functions are available inside Event Queue as passive instruction.
+4.Once async operation(task-database connnection) is completed, os triggers event, along with event, data, and its   handler is pushed into event queue, event loop starts processing.
+
+What is handler function/callback function/listener function for?
+To handle async success /failure result.
+   The result of async opertion could be either success or failure
+
+
+io.vertx.Future:
+
+-it is interface used to handle async success/failure results.
+
+io.vertx.core
+
+Interface Future<T>
+
+Future Interface 
+				AsyncResult       Handler
+				-------------------------
+					   |
+				     Future
+
+
+Future interface is used to handle the result of async operation.
+
+
+Future is interface , encapsulate response(Success/failure), we need to create Object 
+for "Future" implementation
+ Future f = Future.future() // create FutureImpl object
+
+Two major api for response:
+
+
+1.complete()  and complete(T result) =>Success Response, encasulated inside this api
+
+2.fail(String failureMessage) and fail(Throwable cause) =>Failure response, encapsulate  inside this api.
+
+Handler apis for handling response;
+...................................
+
+1.succeeded() : empty response
+2.default Future<T> setHandler(Handler<AsyncResult<T>> handler)
+3.default Future<T> onComplete(Handler<AsyncResult<T>> handler)
+4.onSuccess
+5.onFailure
+
+AsyncResult interface apis
+
+ -result() - get the success result sent by Future
+ -cause()   -get the failure result sent by Future
+ -succeed() -test whether it was success or failure
+ -failed()  -test whether it was failure or success
+
+
+Legacy Application flow : object oriented and sync flow
+  
+dependent operations  , should happen one by one
+
+Object oriented seq work flow
+
+ 1.connect db - connect()
+ 2.Query results -queryResult()
+ 3.Formate results -formateResult()
+ 4.add results into http response stream - write()
+ 5.send/flush the results to clients - send()
+
+ Connection con=connect();
+ QueryResult queryres=con.queryResult()
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+Nonblocking io applications:
+...........................
+
+io every where.
+
+-disk io- file io
+-network io - socket programming
+.....................................................................................................
+ 
+non blocking apps:
+
+how do i know that api is nonblocking
+
+public void dosomething(){} - async api?
+ no
+
+ayncs are provided by vertx.
+
+1.timers
+2.fs
+3.networking apis
+
+Creating TCP clients and servers
+Creating HTTP clients and servers
+Creating DNS clients
+Creating Datagram sockets
+Setting and cancelling periodic and one-shot timers
+Getting a reference to the event bus API
+Getting a reference to the file system API
+Getting a reference to the shared data API
+Deploying and undeploying verticles
+
+all apis are from vertx instance.
+
+
+
+timers:
+ you shedule jobs in the kernal based on cpu clock.
 
 
 
 
+does vertx supports blocking code? is blocking is neccessary?How do we write blocking code? 
+
+Yes! vertx supports blocking code.
+
+Yes!, you cant write 100% non blocking code
+.
+Use case : 
+
+You are building vertx application, vertx application need to talk to hibernate/jpa layer.
+Vertx is non blocking but hibernate blocking.
+
+if you write blocking inside non blocking vertx will throw error, but how to bridge blocking with non-blocking.
+
+Solution:
+
+vertx itself provides blocking apis for some use cases
+Fileystem.
+  //blocking version of filessytem
+  private Future<String> readFileBlockingApi() {
+    Promise<String> promise = Promise.promise();
+    FileSystem fs = vertx.fileSystem();
+    //sync version
+    Buffer buffer = fs.readFileBlocking("assets/info.txt");
+    promise.complete(buffer.toString());
+    return promise.future();
+  }
+
+Blocking code
+Thread.sleep
+long running task
+legacy file io
+legacy network 
+database 
+external api 
+.....
+
+Event loop thread can wait for 2000ms - default wait durationg
+
+worker verticle :
+ full blocking code
+ 
+standard verticle and blocking code
+
+-lets say i have 5 api
+ 2 apis are blocking and 3 are non blocking
+-blocking api result needs for non blocking api
+  eg ; call some api , block it and get result, give that result to another non blocking apis.
 
 
 
+<T> void executeBlocking(Handler<Promise<T>> blockingCodeHandler,
+                        Handler<AsyncResult<T>> resultHandler)
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+Vertx MicroServices:
+...................
+Reactive , Non blocking microservices
+
+
+Communication style
+
+Pattern: Messaging : async 
+
+vertx has built in messaging implemenation through which verticles can exchange messages async
 
 
 
+Event Bus:
+
+-Event Bus is nerve of vertx systems.
+
+-Vertx By default is distributed
+
+-Vertx carries distributed architecture by default
+
+-In Vertx Verticles can communicate via Centraized Broker which is built in called event Bus.
+
+-Event Bus uses tcp transport layer by default
+-EventBus can send and recive data in the form of json and buffer
 
 
+How verticle has been designed to adopt this architecture?
 
+Verticle follows a design pattern  "Actor-like Model" ---->Actor Model design pattern
+ 
 
+Verticle follows a design pattern  "Actor-like Model" ---->Actor Model design pattern
+
+https://doc.akka.io/docs/akka/current/typed/guide/actors-intro.html
 
 
 
