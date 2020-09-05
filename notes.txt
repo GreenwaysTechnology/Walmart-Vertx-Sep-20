@@ -510,6 +510,144 @@ Verticle follows a design pattern  "Actor-like Model" ---->Actor Model design pa
 
 https://doc.akka.io/docs/akka/current/typed/guide/actors-intro.html
 
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+Data formats supported by vertx:
+
+1.Buffer
+2.JSON 
+
+non blocking web
+
+
+mini web framework from vertx
+
+web module
+
+
+non blocking database,web integration
+
+->Templates
+
+
+
+via command line we can read configuration information:
+
+vertx run program  -conf  resources/config/conf.json
+
+AbstractiVerticle config()
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+
+Reslience ; recovering from fault:
+..................................
+
+Reactive Programming: ---- obs Des + iterator(pull + push) + functional style
+
+ReactiveX- extension - implementation ; any lang- java,js,.......
+
+Objective ------- data processing over period of time- data streaming
+
+
+Reactive standards
+
+-https://www.reactivemanifesto.org/
+-Reactive Streams
+
+....................................................................................................
+
+
+Reactive with many implemenations.
+java
+ - rxjava - 1,2,3
+ - reactor
+
+Vertx supports reactive with help of reactive stream spec... : Reactive ms
+
+
+rx java
+
+ - stream
+
+objects
+-Observable
+-Subjects
+-Single
+-Maybe
+-Completeable
+-Flowable
+
+operators
+ - methods which are functional apis which is used for data processing.
+
+schedulers
+ If you want to write non blocking reactives.
+
+Hot and COld stream ; broadcasting
+
+Reactive streams
+
+ pipe lines /work stations
+
+  upstream---downstream - back pressure
+  dataproce---dataproce2---dataprocess3----
+
+
+vertx and reactive 
+
+vertx has rxjava - rxfied
+
+abstractverticle
+
+
+vertx unit - vertx async abstraction
+junit - framework
+
+
+assertions api.
+Context - TestContext 
+
+
+react.subscribe();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
